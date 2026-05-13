@@ -81,36 +81,43 @@ public class CreatureManager {
                     System.out.println("1. Filter by Type");
                     System.out.println("2. Filter by Age");
                     System.out.println("Choose an option(1-2): ");
-                    int optionFilter = sc.nextInt();
-                    sc.nextLine();
-                    switch (optionFilter) {
-                        case 1:
-                            System.out.println("Enter Creature type: ");
-                            String creatureTypeFilter = sc.nextLine();
-                            for (Creature creature : creatures) {
-                                if (creature.getCreatureType().equalsIgnoreCase(creatureTypeFilter)) {
-                                    System.out.println(
-                                            "Name: [" + creature.getCreatureName() + "]"
-                                    );
-                                } else {
-                                    System.out.println("No creatures of type " + creatureTypeFilter + " found.");
+                    if (sc.hasNextInt()) {
+
+                        int optionFilter = sc.nextInt();
+                        sc.nextLine();
+
+                        switch (optionFilter) {
+                            case 1:
+                                System.out.println("Enter Creature type: ");
+                                String creatureTypeFilter = sc.nextLine();
+                                for (Creature creature : creatures) {
+                                    if (creature.getCreatureType().equalsIgnoreCase(creatureTypeFilter)) {
+                                        System.out.println(
+                                                "Name: [" + creature.getCreatureName() + "]"
+                                        );
+                                    } else {
+                                        System.out.println("No creatures of type " + creatureTypeFilter + " found.");
+                                    }
                                 }
-                            }
-                            break;
-                        case 2:
-                            System.out.println("Enter maximum age: ");
-                            int ageFilter = sc.nextInt();
-                            sc.nextLine();
-                            for (Creature creature : creatures) {
-                                if (creature.getAge() <= ageFilter) {
-                                    System.out.println(
-                                            "Name: [" + creature.getCreatureName() + "], Age: [" + creature.getAge() + "]"
-                                    );
+                                break;
+                            case 2:
+                                System.out.println("Enter maximum age: ");
+                                int ageFilter = sc.nextInt();
+                                sc.nextLine();
+                                for (Creature creature : creatures) {
+                                    if (creature.getAge() <= ageFilter) {
+                                        System.out.println(
+                                                "Name: [" + creature.getCreatureName() + "], Age: [" + creature.getAge() + "]"
+                                        );
+                                    }
                                 }
-                            }
-                            break;
-                        default:
-                            System.out.println("Invalid option. Returning to main menu.");
+                                break;
+                            default:
+                                System.out.println("Invalid option. Returning to main menu.");
+                        }
+                    }else {
+                        System.out.println("Input must be an integer. Returning to main menu.");
+                        sc.nextLine();
                     }
                     break;
                 case 5:
