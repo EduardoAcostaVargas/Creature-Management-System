@@ -18,7 +18,8 @@ public class CreatureManager {
             System.out.println("4. Filter Creatures");
             System.out.println("5. Statistics");
             System.out.println("6. Creatures lore");
-            System.out.println("7. Exit");
+            System.out.println("7. Modify Creature");
+            System.out.println("8. Exit");
             System.out.println("Choose an option: \n");
 
             int choice = sc.nextInt();
@@ -162,6 +163,39 @@ public class CreatureManager {
                     }
                     break;
                 case 7:
+                    System.out.println("Enter creature name to modify: ");
+                    String nameToModify = sc.nextLine().trim();
+                    System.out.println("What would you like to modify? ");
+                    System.out.println("1. Name");
+                    System.out.println("2. Age");
+                    int modifyOption = sc.nextInt();
+                    sc.nextLine();
+                    boolean foundModify = false;
+                    for (Creature creature : creatures) {
+                        if (creature.getCreatureName().equalsIgnoreCase(nameToModify)) {
+                            foundModify = true;
+                            switch (modifyOption) {
+                                case 1:
+                                    System.out.println("Enter new name: ");
+                                    String newName = sc.nextLine();
+                                    creature.setCreatureName(newName);
+                                    System.out.println("Name updated successfully.");
+                                    break;
+                                case 2:
+                                    System.out.println("Enter new age: ");
+                                    int newAge = sc.nextInt();
+                                    sc.nextLine();
+                                    creature.setAge(newAge);
+                                    System.out.println("Age updated successfully.");
+                                    break;
+                                default:
+                                    System.out.println("Invalid option. Returning to main menu.");
+                            }
+                            break;
+                        }
+                    }
+                    break;
+                case 8:
                     System.out.println("Exiting Creature Manager. Goodbye!");
                     return;
                 default:
