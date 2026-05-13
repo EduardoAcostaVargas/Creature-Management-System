@@ -20,7 +20,7 @@ public class CreatureManager {
             System.out.println("6. Creatures lore");
             System.out.println("7. Modify Creature");
             System.out.println("8. Exit");
-            System.out.println("Choose an option: \n");
+            System.out.print("Choose an option:  ");
 
             int choice = sc.nextInt();
             sc.nextLine();
@@ -80,7 +80,7 @@ public class CreatureManager {
                     System.out.println("--- Filter Creatures ---");
                     System.out.println("1. Filter by Type");
                     System.out.println("2. Filter by Age");
-                    System.out.println("Choose an option: \n");
+                    System.out.println("Choose an option(1-2): ");
                     int optionFilter = sc.nextInt();
                     sc.nextLine();
                     switch (optionFilter) {
@@ -122,8 +122,6 @@ public class CreatureManager {
                         totalAge += creatures.get(i).getAge();
                     }
                     System.out.println("Average Age: " + (totalAge / creatures.size()));
-
-                    //print creaturesTypes and amount of each type//////////////////////////////////////////////////////
                     System.out.println("Creature Types:");
                     int dragonCount = 0;
                     int phoenixCount = 0;
@@ -146,20 +144,30 @@ public class CreatureManager {
                     System.out.println("1. Dragon");
                     System.out.println("2. Griffin");
                     System.out.println("3. Phoenix");
-                    int displayChoice = sc.nextInt();
-                    sc.nextLine();
-                    switch (displayChoice) {
-                        case 1:
-                            new Dragon("Example Dragon", "Fire", 100, "Dragon").displayInfo();
-                            break;
-                        case 2:
-                            new Griffin("Example Griffin", 50).displayInfo();
-                            break;
-                        case 3:
-                            new Phoenix("Example Phoenix", 100).displayInfo();
-                            break;
-                        default:
-                            System.out.println("Invalid option. Returning to main menu.");
+                    System.out.println("Chose an option(1-3): ");
+
+                    if (sc.hasNextInt()) {
+
+                        int displayChoice = sc.nextInt();
+                        sc.nextLine();
+
+                        switch (displayChoice) {
+                            case 1:
+                                new Dragon("Example Dragon", "Fire", 100, "Dragon").displayInfo();
+                                break;
+                            case 2:
+                                new Griffin("Example Griffin", 50).displayInfo();
+                                break;
+                            case 3:
+                                new Phoenix("Example Phoenix", 100).displayInfo();
+                                break;
+                            default:
+                                System.out.println("Invalid option. Please enter (1-3)");
+                                break;
+                        }
+                    } else {
+                        System.out.println("Input must be an integer.");
+                        sc.nextLine();
                     }
                     break;
                 case 7:
@@ -168,12 +176,11 @@ public class CreatureManager {
                     System.out.println("What would you like to modify? ");
                     System.out.println("1. Name");
                     System.out.println("2. Age");
+                    System.out.println("Choose an option(1-2): ");
                     int modifyOption = sc.nextInt();
                     sc.nextLine();
-                    boolean foundModify = false;
                     for (Creature creature : creatures) {
                         if (creature.getCreatureName().equalsIgnoreCase(nameToModify)) {
-                            foundModify = true;
                             switch (modifyOption) {
                                 case 1:
                                     System.out.println("Enter new name: ");
