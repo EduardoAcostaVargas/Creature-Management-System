@@ -42,7 +42,7 @@ public class CreatureManager {
                     displayStatistics(creatures);
                     break;
                 case 6:
-                    creatuesLore(sc);
+                    creaturesLore(sc);
                     break;
                 case 7:
                     modifyCreatures(creatures, sc);
@@ -56,7 +56,7 @@ public class CreatureManager {
 
     }
 
-    private static void modifyCreatures(List<Creature> creatures, Scanner sc) {
+    public static void modifyCreatures(List<Creature> creatures, Scanner sc) {
         if (creatures.isEmpty()) {
             System.out.println("No creatures to modify at this time. Add at least one creature first.");
             return;
@@ -94,7 +94,7 @@ public class CreatureManager {
         }
     }
 
-    private static void creatuesLore(Scanner sc) {
+    public static void creaturesLore(Scanner sc) {
         System.out.println("Select a creature to view its lore:");
         System.out.println("1. Dragon");
         System.out.println("2. Griffin");
@@ -126,7 +126,7 @@ public class CreatureManager {
         }
     }
 
-    private static void displayStatistics(List<Creature> creatures) {
+    public static void displayStatistics(List<Creature> creatures) {
         if (creatures.isEmpty()) {
             System.out.println("No creatures to display statistics for. Add at least one creature first.");
             return;
@@ -158,7 +158,7 @@ public class CreatureManager {
         }
     }
 
-    private static void filterCreatures(Scanner sc, List<Creature> creatures) {
+    public static void filterCreatures(Scanner sc, List<Creature> creatures) {
         System.out.println("--- Filter Creatures ---");
         System.out.println("1. Filter by Type");
         System.out.println("2. Filter by Age");
@@ -203,7 +203,7 @@ public class CreatureManager {
         }
     }
 
-    private static void displayAllCreatures(List<Creature> creatures) {
+    public static void displayAllCreatures(List<Creature> creatures) {
         System.out.println("--- All Creatures ---");
         for (Creature creature : creatures) {
             System.out.println(
@@ -213,7 +213,7 @@ public class CreatureManager {
         System.out.println("---------------------");
     }
 
-    private static void removeCreature(Scanner sc, List<Creature> creatures) {
+    public static void removeCreature(Scanner sc, List<Creature> creatures) {
         System.out.println("Enter creature name to remove: ");
         String nameToRemove = sc.nextLine().trim();
         boolean found = false;
@@ -235,7 +235,7 @@ public class CreatureManager {
         }
     }
 
-    private static void addCreature(Scanner sc, List<Creature> creatures) {
+    public static void addCreature(Scanner sc, List<Creature> creatures) {
         System.out.println("Enter creature type(Dragon, Phoenix, Griffin): ");
         String creatureType = sc.nextLine();
         System.out.println("Enter creature name: ");
