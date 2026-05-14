@@ -122,7 +122,7 @@ public class CreatureManager {
                     break;
                 case 5:
                     if (creatures.isEmpty()) {
-                        System.out.println("No creatures to display statistics for.");
+                        System.out.println("No creatures to display statistics for. Add at least one creature first.");
                         break;
                     } else {
                         System.out.println("--- Statistics ---");
@@ -183,34 +183,39 @@ public class CreatureManager {
                     }
                     break;
                 case 7:
-                    System.out.println("Enter creature name to modify: ");
-                    String nameToModify = sc.nextLine().trim();
-                    System.out.println("What would you like to modify? ");
-                    System.out.println("1. Name");
-                    System.out.println("2. Age");
-                    System.out.println("Choose an option(1-2): ");
-                    int modifyOption = sc.nextInt();
-                    sc.nextLine();
-                    for (Creature creature : creatures) {
-                        if (creature.getCreatureName().equalsIgnoreCase(nameToModify)) {
-                            switch (modifyOption) {
-                                case 1:
-                                    System.out.println("Enter new name: ");
-                                    String newName = sc.nextLine();
-                                    creature.setCreatureName(newName);
-                                    System.out.println("Name updated successfully.");
-                                    break;
-                                case 2:
-                                    System.out.println("Enter new age: ");
-                                    int newAge = sc.nextInt();
-                                    sc.nextLine();
-                                    creature.setAge(newAge);
-                                    System.out.println("Age updated successfully.");
-                                    break;
-                                default:
-                                    System.out.println("Invalid option. Returning to main menu.");
+                    if (creatures.isEmpty()) {
+                        System.out.println("No creatures to modify at this time. Add at least one creature first.");
+                        break;
+                    }else {
+                        System.out.println("Enter creature name to modify: ");
+                        String nameToModify = sc.nextLine().trim();
+                        System.out.println("What would you like to modify? ");
+                        System.out.println("1. Name");
+                        System.out.println("2. Age");
+                        System.out.println("Choose an option(1-2): ");
+                        int modifyOption = sc.nextInt();
+                        sc.nextLine();
+                        for (Creature creature : creatures) {
+                            if (creature.getCreatureName().equalsIgnoreCase(nameToModify)) {
+                                switch (modifyOption) {
+                                    case 1:
+                                        System.out.println("Enter new name: ");
+                                        String newName = sc.nextLine();
+                                        creature.setCreatureName(newName);
+                                        System.out.println("Name updated successfully.");
+                                        break;
+                                    case 2:
+                                        System.out.println("Enter new age: ");
+                                        int newAge = sc.nextInt();
+                                        sc.nextLine();
+                                        creature.setAge(newAge);
+                                        System.out.println("Age updated successfully.");
+                                        break;
+                                    default:
+                                        System.out.println("Invalid option. Returning to main menu.");
+                                }
+                                break;
                             }
-                            break;
                         }
                     }
                     break;
