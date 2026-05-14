@@ -27,197 +27,25 @@ public class CreatureManager {
 
             switch (choice) {
                 case 1:
-                    System.out.println("Enter creature type(Dragon, Phoenix, Griffin): ");
-                    String creatureType = sc.nextLine();
-                    System.out.println("Enter creature name: ");
-                    String creatureName = sc.nextLine();
-                    System.out.println("Enter creature age: ");
-                    int creatureAge = sc.nextInt();
-                    sc.nextLine();
-                    if (creatureType.equalsIgnoreCase("dragon")) {
-                        System.out.println("Enter dragon element(Fire, Ice, Lightning, Water, Earth): ");
-                        String dragonElement = sc.nextLine();
-                        creatures.add(new Dragon(creatureName, dragonElement, creatureAge, creatureType));
-                    } else if (creatureType.equalsIgnoreCase("phoenix")) {
-                        creatures.add(new Phoenix(creatureName, creatureAge));
-                    } else if (creatureType.equalsIgnoreCase("griffin")) {
-                        creatures.add(new Griffin(creatureName, creatureAge));
-                    } else {
-                        System.out.println("Invalid creature type. Creature not added.");
-                    }
+                    addCreature(sc, creatures);
                     break;
                 case 2:
-                    System.out.println("Enter creature name to remove: ");
-                    String nameToRemove = sc.nextLine().trim();
-                    boolean found = false;
-                    try {
-                        for (Creature creature : creatures) {
-                            if (creature.getCreatureName().equalsIgnoreCase(nameToRemove)) {
-                                creatures.remove(creature);
-                                System.out.println("Creature removed: " + nameToRemove);
-                                found = true;
-                                break;
-                            }
-                        }
-                        if (!found) {
-                            throw new Exception("Creature not found: " + nameToRemove);
-                        }
-
-                    } catch (Exception e) {
-                        System.out.println(e.getMessage());
-                    }
+                    removeCreature(sc, creatures);
                     break;
                 case 3:
-                    System.out.println("--- All Creatures ---");
-                    for (Creature creature : creatures) {
-                        System.out.println(
-                                "Name: [" + creature.getCreatureName() + "], Type: [" + creature.getCreatureType() + "]"
-                        );
-                    }
-                    System.out.println("---------------------");
+                    displayAllCreatures(creatures);
                     break;
                 case 4:
-                    System.out.println("--- Filter Creatures ---");
-                    System.out.println("1. Filter by Type");
-                    System.out.println("2. Filter by Age");
-                    System.out.println("Choose an option(1-2): ");
-                    if (sc.hasNextInt()) {
-
-                        int optionFilter = sc.nextInt();
-                        sc.nextLine();
-
-                        switch (optionFilter) {
-                            case 1:
-                                System.out.println("Enter Creature type: ");
-                                String creatureTypeFilter = sc.nextLine();
-                                for (Creature creature : creatures) {
-                                    if (creature.getCreatureType().equalsIgnoreCase(creatureTypeFilter)) {
-                                        System.out.println(
-                                                "Name: [" + creature.getCreatureName() + "]"
-                                        );
-                                    } else {
-                                        System.out.println("No creatures of type " + creatureTypeFilter + " found.");
-                                    }
-                                }
-                                break;
-                            case 2:
-                                System.out.println("Enter maximum age: ");
-                                int ageFilter = sc.nextInt();
-                                sc.nextLine();
-                                for (Creature creature : creatures) {
-                                    if (creature.getAge() <= ageFilter) {
-                                        System.out.println(
-                                                "Name: [" + creature.getCreatureName() + "], Age: [" + creature.getAge() + "]"
-                                        );
-                                    }
-                                }
-                                break;
-                            default:
-                                System.out.println("Invalid option. Returning to main menu.");
-                        }
-                    } else {
-                        System.out.println("Input must be an integer. Returning to main menu.");
-                        sc.nextLine();
-                    }
+                    filterCreatures(sc, creatures);
                     break;
                 case 5:
-                    if (creatures.isEmpty()) {
-                        System.out.println("No creatures to display statistics for. Add at least one creature first.");
-                        break;
-                    } else {
-                        System.out.println("--- Statistics ---");
-                        System.out.println("Total Creatures: " + creatures.size());
-
-                        int totalAge = 0;
-                        for (int i = 0; i < creatures.size(); i++) {
-                            totalAge += creatures.get(i).getAge();
-                        }
-                        System.out.println("Average Age: " + (totalAge / creatures.size()));
-                        System.out.println("Creature Types:");
-                        int dragonCount = 0;
-                        int phoenixCount = 0;
-                        int griffinCount = 0;
-                        for (int i = 0; i < creatures.size(); i++) {
-                            if (creatures.get(i).getCreatureType().equalsIgnoreCase("dragon")) {
-                                dragonCount++;
-                            } else if (creatures.get(i).getCreatureType().equalsIgnoreCase("phoenix")) {
-                                phoenixCount++;
-                            } else if (creatures.get(i).getCreatureType().equalsIgnoreCase("griffin")) {
-                                griffinCount++;
-                            }
-                        }
-                        System.out.println("Dragons: " + dragonCount);
-                        System.out.println("Phoenixes: " + phoenixCount);
-                        System.out.println("Griffins: " + griffinCount);
-                    }
+                    displayStatistics(creatures);
                     break;
                 case 6:
-                    System.out.println("Select a creature to view its lore:");
-                    System.out.println("1. Dragon");
-                    System.out.println("2. Griffin");
-                    System.out.println("3. Phoenix");
-                    System.out.println("Chose an option(1-3): ");
-
-                    if (sc.hasNextInt()) {
-
-                        int displayChoice = sc.nextInt();
-                        sc.nextLine();
-
-                        switch (displayChoice) {
-                            case 1:
-                                new Dragon("Example Dragon", "Fire", 100, "Dragon").displayInfo();
-                                break;
-                            case 2:
-                                new Griffin("Example Griffin", 50).displayInfo();
-                                break;
-                            case 3:
-                                new Phoenix("Example Phoenix", 100).displayInfo();
-                                break;
-                            default:
-                                System.out.println("Invalid option. Please enter (1-3)");
-                                break;
-                        }
-                    } else {
-                        System.out.println("Input must be an integer.");
-                        sc.nextLine();
-                    }
+                    creatuesLore(sc);
                     break;
                 case 7:
-                    if (creatures.isEmpty()) {
-                        System.out.println("No creatures to modify at this time. Add at least one creature first.");
-                        break;
-                    }else {
-                        System.out.println("Enter creature name to modify: ");
-                        String nameToModify = sc.nextLine().trim();
-                        System.out.println("What would you like to modify? ");
-                        System.out.println("1. Name");
-                        System.out.println("2. Age");
-                        System.out.println("Choose an option(1-2): ");
-                        int modifyOption = sc.nextInt();
-                        sc.nextLine();
-                        for (Creature creature : creatures) {
-                            if (creature.getCreatureName().equalsIgnoreCase(nameToModify)) {
-                                switch (modifyOption) {
-                                    case 1:
-                                        System.out.println("Enter new name: ");
-                                        String newName = sc.nextLine();
-                                        creature.setCreatureName(newName);
-                                        System.out.println("Name updated successfully.");
-                                        break;
-                                    case 2:
-                                        System.out.println("Enter new age: ");
-                                        int newAge = sc.nextInt();
-                                        sc.nextLine();
-                                        creature.setAge(newAge);
-                                        System.out.println("Age updated successfully.");
-                                        break;
-                                    default:
-                                        System.out.println("Invalid option. Returning to main menu.");
-                                }
-                                break;
-                            }
-                        }
-                    }
+                    modifyCreatures(creatures, sc);
                     break;
                 case 8:
                     System.out.println("Exiting Creature Manager. Goodbye!");
@@ -226,6 +54,206 @@ public class CreatureManager {
         }
 
 
+    }
+
+    private static void modifyCreatures(List<Creature> creatures, Scanner sc) {
+        if (creatures.isEmpty()) {
+            System.out.println("No creatures to modify at this time. Add at least one creature first.");
+            return;
+        }else {
+            System.out.println("Enter creature name to modify: ");
+            String nameToModify = sc.nextLine().trim();
+            System.out.println("What would you like to modify? ");
+            System.out.println("1. Name");
+            System.out.println("2. Age");
+            System.out.println("Choose an option(1-2): ");
+            int modifyOption = sc.nextInt();
+            sc.nextLine();
+            for (Creature creature : creatures) {
+                if (creature.getCreatureName().equalsIgnoreCase(nameToModify)) {
+                    switch (modifyOption) {
+                        case 1:
+                            System.out.println("Enter new name: ");
+                            String newName = sc.nextLine();
+                            creature.setCreatureName(newName);
+                            System.out.println("Name updated successfully.");
+                            break;
+                        case 2:
+                            System.out.println("Enter new age: ");
+                            int newAge = sc.nextInt();
+                            sc.nextLine();
+                            creature.setAge(newAge);
+                            System.out.println("Age updated successfully.");
+                            break;
+                        default:
+                            System.out.println("Invalid option. Returning to main menu.");
+                    }
+                    break;
+                }
+            }
+        }
+    }
+
+    private static void creatuesLore(Scanner sc) {
+        System.out.println("Select a creature to view its lore:");
+        System.out.println("1. Dragon");
+        System.out.println("2. Griffin");
+        System.out.println("3. Phoenix");
+        System.out.println("Chose an option(1-3): ");
+
+        if (sc.hasNextInt()) {
+
+            int displayChoice = sc.nextInt();
+            sc.nextLine();
+
+            switch (displayChoice) {
+                case 1:
+                    new Dragon("Example Dragon", "Fire", 100, "Dragon").displayInfo();
+                    break;
+                case 2:
+                    new Griffin("Example Griffin", 50).displayInfo();
+                    break;
+                case 3:
+                    new Phoenix("Example Phoenix", 100).displayInfo();
+                    break;
+                default:
+                    System.out.println("Invalid option. Please enter (1-3)");
+                    break;
+            }
+        } else {
+            System.out.println("Input must be an integer.");
+            sc.nextLine();
+        }
+    }
+
+    private static void displayStatistics(List<Creature> creatures) {
+        if (creatures.isEmpty()) {
+            System.out.println("No creatures to display statistics for. Add at least one creature first.");
+            return;
+        } else {
+            System.out.println("--- Statistics ---");
+            System.out.println("Total Creatures: " + creatures.size());
+
+            int totalAge = 0;
+            for (int i = 0; i < creatures.size(); i++) {
+                totalAge += creatures.get(i).getAge();
+            }
+            System.out.println("Average Age: " + (totalAge / creatures.size()));
+            System.out.println("Creature Types:");
+            int dragonCount = 0;
+            int phoenixCount = 0;
+            int griffinCount = 0;
+            for (int i = 0; i < creatures.size(); i++) {
+                if (creatures.get(i).getCreatureType().equalsIgnoreCase("dragon")) {
+                    dragonCount++;
+                } else if (creatures.get(i).getCreatureType().equalsIgnoreCase("phoenix")) {
+                    phoenixCount++;
+                } else if (creatures.get(i).getCreatureType().equalsIgnoreCase("griffin")) {
+                    griffinCount++;
+                }
+            }
+            System.out.println("Dragons: " + dragonCount);
+            System.out.println("Phoenixes: " + phoenixCount);
+            System.out.println("Griffins: " + griffinCount);
+        }
+    }
+
+    private static void filterCreatures(Scanner sc, List<Creature> creatures) {
+        System.out.println("--- Filter Creatures ---");
+        System.out.println("1. Filter by Type");
+        System.out.println("2. Filter by Age");
+        System.out.println("Choose an option(1-2): ");
+        if (sc.hasNextInt()) {
+
+            int optionFilter = sc.nextInt();
+            sc.nextLine();
+
+            switch (optionFilter) {
+                case 1:
+                    System.out.println("Enter Creature type: ");
+                    String creatureTypeFilter = sc.nextLine();
+                    for (Creature creature : creatures) {
+                        if (creature.getCreatureType().equalsIgnoreCase(creatureTypeFilter)) {
+                            System.out.println(
+                                    "Name: [" + creature.getCreatureName() + "]"
+                            );
+                        } else {
+                            System.out.println("No creatures of type " + creatureTypeFilter + " found.");
+                        }
+                    }
+                    break;
+                case 2:
+                    System.out.println("Enter maximum age: ");
+                    int ageFilter = sc.nextInt();
+                    sc.nextLine();
+                    for (Creature creature : creatures) {
+                        if (creature.getAge() <= ageFilter) {
+                            System.out.println(
+                                    "Name: [" + creature.getCreatureName() + "], Age: [" + creature.getAge() + "]"
+                            );
+                        }
+                    }
+                    break;
+                default:
+                    System.out.println("Invalid option. Returning to main menu.");
+            }
+        } else {
+            System.out.println("Input must be an integer. Returning to main menu.");
+            sc.nextLine();
+        }
+    }
+
+    private static void displayAllCreatures(List<Creature> creatures) {
+        System.out.println("--- All Creatures ---");
+        for (Creature creature : creatures) {
+            System.out.println(
+                    "Name: [" + creature.getCreatureName() + "], Type: [" + creature.getCreatureType() + "]"
+            );
+        }
+        System.out.println("---------------------");
+    }
+
+    private static void removeCreature(Scanner sc, List<Creature> creatures) {
+        System.out.println("Enter creature name to remove: ");
+        String nameToRemove = sc.nextLine().trim();
+        boolean found = false;
+        try {
+            for (Creature creature : creatures) {
+                if (creature.getCreatureName().equalsIgnoreCase(nameToRemove)) {
+                    creatures.remove(creature);
+                    System.out.println("Creature removed: " + nameToRemove);
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                throw new Exception("Creature not found: " + nameToRemove);
+            }
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private static void addCreature(Scanner sc, List<Creature> creatures) {
+        System.out.println("Enter creature type(Dragon, Phoenix, Griffin): ");
+        String creatureType = sc.nextLine();
+        System.out.println("Enter creature name: ");
+        String creatureName = sc.nextLine();
+        System.out.println("Enter creature age: ");
+        int creatureAge = sc.nextInt();
+        sc.nextLine();
+        if (creatureType.equalsIgnoreCase("dragon")) {
+            System.out.println("Enter dragon element(Fire, Ice, Lightning, Water, Earth): ");
+            String dragonElement = sc.nextLine();
+            creatures.add(new Dragon(creatureName, dragonElement, creatureAge, creatureType));
+        } else if (creatureType.equalsIgnoreCase("phoenix")) {
+            creatures.add(new Phoenix(creatureName, creatureAge));
+        } else if (creatureType.equalsIgnoreCase("griffin")) {
+            creatures.add(new Griffin(creatureName, creatureAge));
+        } else {
+            System.out.println("Invalid creature type. Creature not added.");
+        }
     }
 
 }

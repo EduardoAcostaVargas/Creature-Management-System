@@ -14,7 +14,7 @@ public class FCMUnitTesting {
 
 
         //Act
-
+        addCreature();
 
         //Assert
     }
