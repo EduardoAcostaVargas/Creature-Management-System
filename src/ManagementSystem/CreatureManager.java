@@ -115,36 +115,41 @@ public class CreatureManager {
                             default:
                                 System.out.println("Invalid option. Returning to main menu.");
                         }
-                    }else {
+                    } else {
                         System.out.println("Input must be an integer. Returning to main menu.");
                         sc.nextLine();
                     }
                     break;
                 case 5:
-                    System.out.println("--- Statistics ---");
-                    System.out.println("Total Creatures: " + creatures.size());
+                    if (creatures.isEmpty()) {
+                        System.out.println("No creatures to display statistics for.");
+                        break;
+                    } else {
+                        System.out.println("--- Statistics ---");
+                        System.out.println("Total Creatures: " + creatures.size());
 
-                    int totalAge = 0;
-                    for (int i = 0; i < creatures.size(); i++) {
-                        totalAge += creatures.get(i).getAge();
-                    }
-                    System.out.println("Average Age: " + (totalAge / creatures.size()));
-                    System.out.println("Creature Types:");
-                    int dragonCount = 0;
-                    int phoenixCount = 0;
-                    int griffinCount = 0;
-                    for (int i = 0; i < creatures.size(); i++) {
-                        if (creatures.get(i).getCreatureType().equalsIgnoreCase("dragon")) {
-                            dragonCount++;
-                        } else if (creatures.get(i).getCreatureType().equalsIgnoreCase("phoenix")) {
-                            phoenixCount++;
-                        } else if (creatures.get(i).getCreatureType().equalsIgnoreCase("griffin")) {
-                            griffinCount++;
+                        int totalAge = 0;
+                        for (int i = 0; i < creatures.size(); i++) {
+                            totalAge += creatures.get(i).getAge();
                         }
+                        System.out.println("Average Age: " + (totalAge / creatures.size()));
+                        System.out.println("Creature Types:");
+                        int dragonCount = 0;
+                        int phoenixCount = 0;
+                        int griffinCount = 0;
+                        for (int i = 0; i < creatures.size(); i++) {
+                            if (creatures.get(i).getCreatureType().equalsIgnoreCase("dragon")) {
+                                dragonCount++;
+                            } else if (creatures.get(i).getCreatureType().equalsIgnoreCase("phoenix")) {
+                                phoenixCount++;
+                            } else if (creatures.get(i).getCreatureType().equalsIgnoreCase("griffin")) {
+                                griffinCount++;
+                            }
+                        }
+                        System.out.println("Dragons: " + dragonCount);
+                        System.out.println("Phoenixes: " + phoenixCount);
+                        System.out.println("Griffins: " + griffinCount);
                     }
-                    System.out.println("Dragons: " + dragonCount);
-                    System.out.println("Phoenixes: " + phoenixCount);
-                    System.out.println("Griffins: " + griffinCount);
                     break;
                 case 6:
                     System.out.println("Select a creature to view its lore:");
@@ -212,9 +217,6 @@ public class CreatureManager {
                 case 8:
                     System.out.println("Exiting Creature Manager. Goodbye!");
                     return;
-                default:
-                    System.out.println("Invalid option. Please choose a valid option from the menu.");
-
             }
         }
 
