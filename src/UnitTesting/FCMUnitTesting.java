@@ -2,6 +2,7 @@ package UnitTesting;
 
 import ManagementSystem.Creature;
 import ManagementSystem.CreatureManager;
+import ManagementSystem.CreatureService;
 import ManagementSystem.Dragon;
 import org.junit.jupiter.api.Test;
 
@@ -21,7 +22,7 @@ public class FCMUnitTesting {
 
 
         //Act
-        CreatureManager.addCreature(sc, creatures);
+        CreatureManager.addCreature(sc, (CreatureService) creatures);
 
         //Assert
         assertEquals(1, creatures.size());
@@ -38,7 +39,7 @@ public class FCMUnitTesting {
         creatures.add(new Dragon("Smolder", "Fire", 150, "Dragon"));
 
         //Act
-        CreatureManager.removeCreature(sc, creatures);
+        CreatureManager.removeCreature(sc, (CreatureService) creatures);
 
         //Assert
         assertEquals(0, creatures.size());
@@ -53,7 +54,7 @@ public class FCMUnitTesting {
             creatures.add(new Dragon("Smolder", "Fire", 150, "Dragon"));
 
         //Act
-        CreatureManager.modifyCreatures(creatures, sc);
+        CreatureManager.modifyCreatures((CreatureService) creatures, sc);
 
         //Assert
         assertEquals(1, creatures.size());
@@ -68,7 +69,7 @@ public class FCMUnitTesting {
         List<Creature> creatures = new ArrayList<>();
         creatures.add(new Dragon("Smolder", "Fire", 150, "Dragon"));
         //Act
-        CreatureManager.modifyCreatures(creatures, sc);
+        CreatureManager.modifyCreatures((CreatureService) creatures, sc);
 
         //Assert
         assertEquals(1, creatures.size());

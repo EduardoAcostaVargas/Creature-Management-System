@@ -13,7 +13,7 @@ public class CreatureService {
         return Collections.unmodifiableList(creatures);
     }
 
-    public void addCreature(String type, String creatureName, int age, String element){
+    public boolean addCreature(String type, String creatureName, int age, String element){
         if(type.equalsIgnoreCase("Dragon")){
             creatures.add(new Dragon(creatureName, element, age, type));
         } else if (type.equalsIgnoreCase("Phoenix")) {
@@ -23,6 +23,7 @@ public class CreatureService {
         } else {
             System.out.println("Unknown creature type: " + type);
         }
+        return false;
     }
 
     public boolean removeCreature(String creatureName){
