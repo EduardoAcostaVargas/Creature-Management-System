@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class Griffin extends Creature implements Ability {
 
-    Griffin(String griffinName, int age) {
+    public Griffin(String griffinName, int age) {
         super(griffinName, age, "Griffin");
 
     }
