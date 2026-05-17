@@ -21,9 +21,10 @@ public class CreatureService {
         }else if (type.equalsIgnoreCase("Griffin")) {
             creatures.add(new Griffin(creatureName, age));
         } else {
-            System.out.println("Unknown creature type: " + type);
+            return false;
         }
-        return false;
+        System.out.println("Successfully added " + type + ": " + creatureName);
+        return true;
     }
 
     public boolean removeCreature(String creatureName){

@@ -10,69 +10,63 @@ import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class FCMUnitTesting {
+
+
     @Test
     public void addCreature() {
-        //Arrange
-        String input = "Dragon\nSmolder\n150\nFire\n";
-        Scanner sc = new Scanner(new ByteArrayInputStream(input.getBytes()));
-        List<Creature> creatures = new ArrayList<>();
+        // Arrange
+        CreatureService service = new CreatureService();
 
+        // Act
+        service.addCreature("Dragon", "Smolder", 150, "Fire");
 
-        //Act
-        CreatureManager.addCreature(sc, (CreatureService) creatures);
-
-        //Assert
-        assertEquals(1, creatures.size());
-        assertEquals("Smolder", creatures.get(0).getCreatureName());
-        assertEquals("Dragon", creatures.get(0).getCreatureType());
+        // Assert
+        assertEquals(1, service.getCreatures().size());
+        assertEquals("Smolder", service.getCreatures().get(0).getCreatureName());
+        assertEquals("Dragon", service.getCreatures().get(0).getCreatureType());
     }
 
     @Test
     public void removeCreature() {
-        //Arrange
-        String input = "Smolder\n";
-        Scanner sc = new Scanner(new ByteArrayInputStream(input.getBytes()));
-        List<Creature> creatures = new ArrayList<>();
-        creatures.add(new Dragon("Smolder", "Fire", 150, "Dragon"));
+        // Arrange
+        CreatureService service = new CreatureService();
+        service.addCreature("Dragon", "Smolder", 150, "Fire");
 
-        //Act
-        CreatureManager.removeCreature(sc, (CreatureService) creatures);
+        // Act
+        service.removeCreature("Smolder");
 
-        //Assert
-        assertEquals(0, creatures.size());
+        // Assert
+        assertEquals(0, service.getCreatures().size());
     }
 
     @Test
     public void modifyCreatureName() {
-        //Arrange
-            String input = "Smolder\n1\nEmber\n";
-            Scanner sc = new Scanner(new ByteArrayInputStream(input.getBytes()));
-            List<Creature> creatures = new ArrayList<>();
-            creatures.add(new Dragon("Smolder", "Fire", 150, "Dragon"));
+        // Arrange
+        CreatureService service = new CreatureService();
+        service.addCreature("Dragon", "Smolder", 150, "Fire");
 
-        //Act
-        CreatureManager.modifyCreatures((CreatureService) creatures, sc);
+        // Act
+        service.modifyCreature("Smolder", "Ember");
 
-        //Assert
-        assertEquals(1, creatures.size());
-        assertEquals("Ember", creatures.get(0).getCreatureName());
+        // Assert
+        assertEquals("Ember", service.getCreatures().get(0).getCreatureName());
     }
 
     @Test
     public void modifyCreatureAge() {
-        //Arrange
-        String input = "Smolder\n2\n200\n";
-        Scanner sc = new Scanner(new ByteArrayInputStream(input.getBytes()));
-        List<Creature> creatures = new ArrayList<>();
-        creatures.add(new Dragon("Smolder", "Fire", 150, "Dragon"));
-        //Act
-        CreatureManager.modifyCreatures((CreatureService) creatures, sc);
+        // Arrange
+        CreatureService service = new CreatureService();
+        service.addCreature("Dragon", "Smolder", 150, "Fire");
 
-        //Assert
-        assertEquals(1, creatures.size());
+        // Act
+        service.modifyCreatureAge("Smolder", 200);
+
+        // Assert
+        assertEquals(200, service.getCreatures().get(0).getAge());
     }
 
 }
